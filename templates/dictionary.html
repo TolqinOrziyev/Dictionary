@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags%}
+{% block content%}
+<br>
+<div class="container">
+
+</div>
+
+<br>
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Dictionary</legend>
+        </fieldset>
+        {{form|crispy}}
+    </form>
+</div>
+
+<div class="ui container">
+    <div class="ui placeholder segment">
+
+        <label for="formGroupExampleInput" class="form-label">English-Uzbek, Uzbek-English</label>
+        <form method="GET" action="" class="mb-3">
+            <input name="q" value="{{q}}" type="text" class="form-control" id="formGroupExampleInput" placeholder="write a word... ">
+        </form>
+
+        <br>
+            <h3>Result:</h3>
+        <br>
+
+        <div class="row">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">In English</th>
+                  <th scope="col">In Uzbek</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%if result %}
+              {% for tarjima in result %}
+                <tr>
+                  <td>{{ tarjima.inglizcha }}</td>
+                  <td>{{ tarjima.ozbekcha }}</td>
+                </tr>
+              {% endfor %}
+              {% endif %}
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+
+{% endblock content%}
